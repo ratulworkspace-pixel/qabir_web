@@ -766,21 +766,70 @@
 
 			<div class="row block-9">
 				<div class="col-md-8">
+
+					    <form id="contact-form" class="bg-light p-4 p-md-5 contact-form">
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <textarea
+              name="message"
+              cols="30"
+              rows="7"
+              class="form-control"
+              placeholder="Message"
+              required></textarea>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary py-3 px-5">
+              Send Message
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <p id="form-status"></p>
+        </div>
+
+      </div>
+    </form>
+					<!--
 					<form action="#" class="bg-light p-4 p-md-5 contact-form">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Your Name">
+									<input type="text" class="form-control" name="name" placeholder="Your Name">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Your Email">
+									<input type="text" class="form-control" name="email" placeholder="Your Email">
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Subject">
+									<input type="text" class="form-control" rows="5" name="message" placeholder="Subject">
 								</div>
 							</div>
 							<div class="col-md-12">
@@ -794,7 +843,7 @@
 								</div>
 							</div>
 						</div>
-					</form>
+					</form> -->
 					
 				</div>
 
@@ -906,7 +955,12 @@
 		
 
 		<!-- loader -->
-		<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+		<div id="ftco-loader" class="show fullscreen">
+			<svg class="circular" width="48px" height="48px">
+				<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+				<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
+			</svg>
+		</div>
 
 
 		<script src="js/jquery.min.js"></script>
@@ -924,6 +978,36 @@
 		<script src="js/google-map.js"></script>
 		
 		<script src="js/main.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  (function () {
+    emailjs.init("p9TcoqFCMIKJtZ7Sm");
+  })();
+
+  document.getElementById("contact-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const status = document.getElementById("form-status");
+    status.innerHTML = "Sending...";
+
+    emailjs.sendForm(
+      "service_td9tvkd",
+      "template_3mj2nxd",
+      this
+    ).then(
+      function () {
+        status.innerHTML = "<span style='color:green;'>Message sent successfully!</span>";
+        document.getElementById("contact-form").reset();
+      },
+      function () {
+        status.innerHTML = "<span style='color:red;'>Failed to send message. Please try again.</span>";
+      }
+    );
+  });
+</script>
+
 		
 	</body>
 	</html>
